@@ -59,7 +59,6 @@ status creatList(SqList &L) {
 //输出表
 status outputList(SqList &L) {
     int i = 0;
-    elemType input;
     cout << "The list: ";
     while (i <= L.length - 1) {
         cout << L.elem[i] << " ";
@@ -143,7 +142,7 @@ int main() {
 //    菜单
     while (true) {
         cout << "输入数字以执行对应操作：\n"
-                "1.输出顺序表数据\n"
+                "1.输出表数据\n"
                 "2.按位查找\n"
                 "3.按值查找\n"
                 "4.插入元素\n"
