@@ -1,0 +1,6 @@
+# 项目排除路径
+/cmake-build-debug/
+/.idea/
+
+# 排除文件
+CMakeLists.txt
