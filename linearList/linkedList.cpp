@@ -18,6 +18,9 @@
 
 #include <iostream>
 #include <cstring>
+#include <algorithm>
+#include <functional>
+
 
 using namespace std;
 
@@ -40,7 +43,7 @@ status initList(LinkList &L) {
     L = new LNode;
     L->next = nullptr;
     return OK;
-};
+}
 
 //通过键盘流生成表数据
 status creatList(LinkList &L) {
@@ -59,19 +62,17 @@ status creatList(LinkList &L) {
             p = p->next;
         } else
             return OK;
-    };
+    }
 }
 
 //输出表
 status outputList(LinkList &L) {
     LNode *p = L;
 
-    cout << "The list: ";
     while (p->next) {
         p = p->next;
         cout << p->data << " ";
     }
-    cout << endl;
     return OK;
 }
 
@@ -87,27 +88,6 @@ status length(LinkList &L) {
     }
     return len;
 }
-
-
-////查找操作，查找第i个元素，并返回其值
-//status findIndex(LinkList &L, int i) {
-//    cout << "The NO." << i << " element: " << L.elem[i - 1] << endl;
-//    return OK;
-//}
-
-
-////按值查找，查找数据域为x的元素，存在返回其位置
-//status searchElem(LinkList &L, elemType x) {
-//    int i = 0;
-//    while ((L.elem[i] != x) && (i <= L.length - 1))
-//        i++;
-//    if (i == L.length)
-//        return ERROR;
-//    else {
-//        cout << "Location is NO." << i + 1 << endl;
-//        return OK;
-//    }
-//}
 
 
 //插入操作，在第i个元素前插入一个元素
@@ -136,7 +116,6 @@ status insertElem(LinkList &L, int i, elemType x) {
 //删除操作，删除表中第i个元素
 status deleteElem(LinkList &L, int i) {
     LNode *p = L;
-    LNode *q;
     int j = 1;
 
 
@@ -153,53 +132,173 @@ status deleteElem(LinkList &L, int i) {
 }
 
 
+//将链表排序为非递减有序单链表
+status sortAsIncrease(LinkList &L) {
+    LNode *p;
+    int i;
+    elemType arr[length(L)];
+
+    i = 0;
+    p = L;
+    while (p->next) {
+        p = p->next;
+        arr[i] = p->data;
+        i++;
+    }
+
+    sort(arr, arr + length(L), less<>());
+
+    i = 0;
+    p = L;
+    while (p->next) {
+        p = p->next;
+        p->data = arr[i];
+        i++;
+    }
+    return OK;
+}
+
+
+//将链表排序为非递减有序单链表
+status connectAsIncrease(LinkList &L, LinkList &anotherL) {
+    //合成
+    LNode *p = L;
+
+    while (p->next)
+        p = p->next;
+
+    p->next = anotherL->next;
+
+    //排序
+    sortAsIncrease(L);
+    return OK;
+}
+
+//删除上述有序表中所有值大于mink且小于maxk的元素（mink、maxk自定）
+status deleteSortedAsIncrease(LinkList &L, elemType mink, elemType maxk) {
+    LNode *p = L;
+    LNode *q = L;
+
+    while ((p->next) && (p->next->data < mink))
+        p = p->next;
+
+    while ((q->next) && (q->next->data < maxk))
+        q = q->next;
+
+    p->next = q->next;
+
+    return OK;
+}
+
+
+//把单链表中元素逆置
+status reverseLinkList(LinkList &L) {
+    LNode *p;
+    int i = 0;
+    elemType arr[length(L)];
+
+//    读取数据
+    p = L;
+    while (p->next) {
+        p = p->next;
+        arr[i] = p->data;
+        i++;
+    }
+
+//    反向输入
+    p = L;
+    while (p->next) {
+        i--;
+        p = p->next;
+        p->data = arr[i];
+    }
+
+    return OK;
+}
+
+
 int main() {
     LinkList L;
+    LinkList anotherL;
+
     int flag;
     int i;
     elemType x;
 
+    elemType mink, maxk;
+
     initList(L);
     cout << "请输入单链表数据（输入-1以终止输入）：";
     creatList(L);
-    cout << "\n";
+    cout << endl;
 
     //    菜单
     while (true) {
         cout << "输入数字以执行对应操作：\n"
-                "1.输出表数据\n"
-//                "2.按位查找\n"
-//                "3.按值查找\n"
-                "4.插入元素\n"
-                "5.按位删除\n"
+                "2.输出表数据\n"
+                "3.插入元素\n"
+                "4.按位删除\n"
+                "5.按非递减排序\n"
+                "6.建立两个非递减有序单链表合并成一个非递减有序单链表\n"
+                "7.删除上述有序表中所有值大于mink且小于maxk的元素\n"
+                "8.把单链表中元素逆置\n"
                 "-1.退出\n";
         cout << "输入：";
         cin >> flag;
         cout << endl;
 
         switch (flag) {
-            case 1:
+            case 2:
+                cout << "The list: ";
                 outputList(L);
+                cout << endl;
                 break;
-//            case 2:
-//                cout << "查找第i个元素，并返回其值。输入i：";
-//                cin >> i;
-//                findIndex(L, i);
-//                break;
-//            case 3:
-//                cout << "查找数据域为x的元素，存在返回其位置。输入数据x：";
-//                cin >> i;
-//                searchElem(L, i);
-//                break;
-            case 4:
+            case 3:
                 cout << "在第i个元素前插入一个元素。输入i和x：";
                 cin >> i >> x;
                 insertElem(L, i, x);
                 break;
-            case 5:
+            case 4:
                 cout << "删除表中第i个元素。输入i：";
                 cin >> i;
                 deleteElem(L, i);
+                break;
+            case 5:
+                cout << "将链表排序为非递减有序单链表：";
+                sortAsIncrease(L);
+                outputList(L);
+                cout << endl;
+                break;
+            case 6:
+                // 键入
+                cout << "输入另一单链表（输入-1以终止输入）：";
+                creatList(anotherL);
+                cout << endl;
+                //合成并排序
+                connectAsIncrease(L, anotherL);
+                //输出
+                cout << "合成的非递减有序单链表为: ";
+                outputList(L);
+                cout << endl;
+                break;
+            case 7:
+                // 键入
+                cout << "输入mink和maxk：";
+                cin >> mink >> maxk;
+                //执行
+                deleteSortedAsIncrease(L, mink, maxk);
+                //输出
+                cout << "删除后的结果为: ";
+                outputList(L);
+                cout << endl;
+                break;
+            case 8:
+                //执行
+                reverseLinkList(L);
+                //输出
+                cout << "逆置后的结果为: ";
+                outputList(L);
+                cout << endl;
                 break;
             case -1:
                 return OK;
@@ -208,6 +307,5 @@ int main() {
                 break;
         }
     }
-
     return 0;
 }
