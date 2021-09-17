@@ -159,7 +159,7 @@ status sortAsIncrease(LinkList &L) {
 }
 
 
-//将链表排序为非递减有序单链表
+//将链表合成为非递减有序单链表
 status connectAsIncrease(LinkList &L, LinkList &anotherL) {
     //合成
     LNode *p = L;
