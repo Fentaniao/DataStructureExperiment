@@ -182,7 +182,7 @@ status deleteSortedAsIncrease(LinkList &L, elemType mink, elemType maxk) {
     LNode *p = L;
     LNode *q = L;
 
-    while ((p->next) && (p->next->data < mink))
+    while ((p->next) && (p->next->data <= mink))
         p = p->next;
 
     while ((q->next) && (q->next->data < maxk))
@@ -310,5 +310,12 @@ int main() {
                 break;
         }
     }
-    return 0;
 }
+
+
+/*
+ * 测试数据
+
+3 5 7 9 11 13 -1
+
+*/
