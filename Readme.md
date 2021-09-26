@@ -1,7 +1,5 @@
 # Progress
 
-- This project is powered by 望舒.
-
 ## ./linearList  
 
 | Description  | FileName                |   Status   |
