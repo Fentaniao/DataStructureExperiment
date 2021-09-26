@@ -1,8 +1,8 @@
 # Progress
 
-如果参考/使用了本项目，请注明：
+如果参考/使用了本项目，请在你的实验报告中注明：
 
-> 参考/使用了来自GitHub上的开源项目DataStructureExperiment，项目地址：https://github.com/Fentaniao/DataStructureExperiment。
+> 我参考/使用了托管在GitHub上的开源项目DataStructureExperiment，项目地址：https://github.com/Fentaniao/DataStructureExperiment。
 
 ## ./linearList  
 
