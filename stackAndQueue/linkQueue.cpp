@@ -31,43 +31,45 @@ typedef struct {
     QueuePtr rear;
 } LinkQueue;
 
-//链队列的初始化操作就是为链队列动态分配一个预定义大小的数组空间
+//初始化
 status initQueue(LinkQueue &Q) {
-    Q = new QNode;
-    Q->next = nullptr;
+    Q.front = Q.rear = new QNode;
+    Q.rear->next = nullptr;
     return OK;
 }
 
 //入队
 status enQueue(LinkQueue &Q, elemType input) {
-    Q = new QNode;
-    Q->data = input;
-    Q->next = nullptr;//要写明
+    QNode *p;
+    p = new QNode;
+    p->data = input;
+    p->next = nullptr;
 
-    p->next = Q;
-    p = p->next;
+    Q.rear->next = p;
+    Q.rear = p;
     return OK;
 }
 
 //出队
 status deQueue(LinkQueue &Q) {
     elemType output;
-    Q.top--;
-    output = *Q.top;
+    output = Q.front->next->data;
+    Q.front->next = Q.front->next->next;
     return output;
 }
 
 //判断是否为空队列
 status isEmpty(LinkQueue &Q) {
-    return Q.top == Q.base;
+    return Q.front->next == nullptr;
 }
 
 
 //输出队列
-status outputQueue(LinkQueue Q) {
-    while (Q.top != Q.base) {
-        cout << *Q.base << " ";
-        Q.base++;
+status outputQueue(LinkQueue &Q) {
+    QueuePtr p = Q.front;
+    while (p->next != nullptr) {
+        p = p->next;
+        cout << p->data << " ";
     }
     return OK;
 }
@@ -75,7 +77,13 @@ status outputQueue(LinkQueue Q) {
 
 //获取队列长
 status length(LinkQueue &Q) {
-    return int(Q.top - Q.base);
+    int i = 0;
+    QueuePtr p = Q.front;
+    while (p->next != nullptr) {
+        i++;
+        p = p->next;
+    }
+    return i;
 }
 
 
@@ -184,7 +192,7 @@ int main() {
  1
  3//出队列
  1
- 4
- 5
+ 4//非空队列
+ 5//队列长为1
 
 */
