@@ -18,5 +18,5 @@
 | ------------ | :------------------ | :--------: |
 | 顺序栈       | sequentialStack.cpp   | Developed  |
 | 链队列      | linkQueue.cpp      | Developed  |
-| 数制转换 | NumberSystemConversion.cpp | Developing |
-| 括号匹配的检验 | SymbolMatch.cpp | Developing |
+| 数制转换 | numberSystemConversion.cpp | Developed |
+| 括号匹配的检验 | symbolMatch.cpp | Developed |
