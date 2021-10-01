@@ -37,7 +37,7 @@ const int OVERFOLOW = -2;
 const int MAXSIZE = 100;
 
 typedef int status;
-typedef int elemType;
+typedef string elemType;
 
 typedef class Stack {
 private:
@@ -54,7 +54,7 @@ public:
     }
 
     //入栈操作是指在栈顶插入一个新的元素
-    status push(elemType input) {
+    status push(char input) {
         if (top - base == stackSize)
             exit(OVERFOLOW);
 
@@ -64,7 +64,7 @@ public:
     }
 
     //出栈操作是将栈顶元素删除
-    status pop() {
+    string pop() {
         elemType output;
         top--;
         output = *top;
@@ -105,20 +105,17 @@ string systemConversion(int &decimalNumber, int &aimSystem) {
 
     int N = decimalNumber;
     string aimNumber;
-    string symbol = "ABCDEFG";
+    string symbol = "0123456789ABCDEFG";
 
 
     //通过for循环，ch依次取的是expression里面的字符,直到取完为止
     while (N) {
-        if (N % aimSystem - 9 > 0)
-            s.push(symbol[N % aimSystem - 9]);
-        else
-            s.push(N % aimSystem);
+        s.push( symbol[N % aimSystem]);
         N = N / aimSystem;
     }
     aimNumber = "";
     while (!s.isEmpty()) {
-        aimNumber += to_string(s.pop());
+        aimNumber += s.pop();
     }
     return aimNumber;
 }
@@ -173,7 +170,10 @@ int main() {
   1
  1348
  2
-  -1
+   1
+ 245
+ 16
+
 
 */
 
@@ -190,6 +190,8 @@ int main() {
  1348
  2
  //10101000100
-  -1//结束
+   1
+ 245
+ 16//f5
 
 */
