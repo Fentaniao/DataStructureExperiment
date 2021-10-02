@@ -31,7 +31,7 @@ const int OVERFOLOW = -2;
 const int MAXSIZE = 100;
 
 typedef int status;
-typedef int elemType;
+typedef char elemType;
 
 typedef class Stack {
 private:
@@ -41,15 +41,14 @@ private:
 
 public:
     //顺序栈的初始化操作就是为顺序栈动态分配一个预定义大小的数组空间
-    status initStack() {
+    Stack() {
         base = new elemType[MAXSIZE];
         top = base;
         stackSize = MAXSIZE;
-        return OK;
     }
 
     //入栈操作是指在栈顶插入一个新的元素
-    status push(elemType input) {
+    status push(elemType &input) {
         if (top - base == stackSize)
             exit(OVERFOLOW);
 
@@ -59,7 +58,7 @@ public:
     }
 
     //出栈操作是将栈顶元素删除
-    status pop() {
+    char pop() {
         elemType output;
         top--;
         output = *top;
@@ -93,14 +92,13 @@ int symbolCheck(string &expression) {
     string rightSymbol = ")}]>";
 
     Stack s;
-    s.initStack();
 
     //通过for循环，ch依次取的是expression里面的字符,直到取完为止
-    for (auto ch: expression) {
-        if (leftSymbol.find(ch))
+    for (char ch: expression) {
+        if (leftSymbol.find(ch) != string::npos)
             s.push(ch);
-        else if (rightSymbol.find(ch))
-            if (leftSymbol[rightSymbol.find(ch)] != s.pop())
+        else if (rightSymbol.find(ch) != string::npos)
+            if (s.pop() != leftSymbol[rightSymbol.find(ch)])
                 return 0;
     }
     return 1;
