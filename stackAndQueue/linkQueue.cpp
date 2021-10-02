@@ -119,7 +119,6 @@ int main() {
                 cout << "请输入入队列元素：";
                 cin >> x;
                 enQueue(Q, x);
-                cout << endl;
                 break;
             case 3:
                 cout << "出队列元素：";

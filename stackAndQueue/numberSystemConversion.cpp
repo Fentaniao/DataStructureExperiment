@@ -105,7 +105,7 @@ string systemConversion(int &decimalNumber, int &aimSystem) {
 
     int N = decimalNumber;
     string aimNumber;
-    string symbol = "0123456789ABCDEFG";
+    string symbol = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 
     //通过for循环，ch依次取的是expression里面的字符,直到取完为止
@@ -133,7 +133,6 @@ int main() {
                 "-1.退出\n";
         cout << "输入：";
         cin >> flag;
-        cout << endl;
 
         switch (flag) {
             case 1:

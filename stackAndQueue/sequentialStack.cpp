@@ -97,7 +97,6 @@ int main() {
                 "-1.退出\n";
         cout << "输入：";
         cin >> flag;
-        cout << endl;
 
         switch (flag) {
             case 1:
