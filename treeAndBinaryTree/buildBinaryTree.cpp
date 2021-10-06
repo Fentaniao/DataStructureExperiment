@@ -14,10 +14,6 @@
 
 
 #include <iostream>
-#include <cstring>
-#include <algorithm>
-#include <functional>
-
 
 using namespace std;
 

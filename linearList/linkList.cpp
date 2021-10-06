@@ -68,6 +68,17 @@ status creatList(LinkList &L) {
     }
 }
 
+//访问下标为index的元素
+status visitList(LinkList &L,int index) {
+    LNode *p = L;
+
+    while (p->next) {
+        p = p->next;
+        cout << p->data << " ";
+    }
+    return OK;
+}
+
 //输出表
 status outputList(LinkList &L) {
     LNode *p = L;
