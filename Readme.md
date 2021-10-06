@@ -4,7 +4,7 @@
 
 > 我参考/使用了托管在GitHub上的开源项目DataStructureExperiment，项目地址：https://github.com/Fentaniao/DataStructureExperiment。
 
-## ./linearList  
+## ./linearList
 
 | Description  | FileName                |   Status   |
 | ------------ | :------------------ | :--------: |
@@ -20,3 +20,11 @@
 | 链队列      | linkQueue.cpp      | Developed  |
 | 数制转换 | numberSystemConversion.cpp | Developed |
 | 括号匹配的检验 | symbolMatch.cpp | Developed |
+
+## ./treeAndBinaryTree
+
+| Description  | FileName                |   Status   |
+| ------------ | :------------------ | :--------: |
+| 以二叉链表方式建立二叉树，并输出结点的值       | buildBinaryTree.cpp   | Developed  |
+| 实现二叉树的高度、叶子结点数、总的结点数等算法     | calcBinaryTree.cpp      |  Developed |
+| 哈夫曼编码 | HuffmanCoding.cpp |  |
