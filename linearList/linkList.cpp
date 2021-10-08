@@ -68,14 +68,15 @@ status creatList(LinkList &L) {
     }
 }
 
-//访问下标为index的元素
-status visitList(LinkList &L,int index) {
+
+//末尾添加元素
+status append(LinkList &L, elemType input) {
     LNode *p = L;
 
-    while (p->next) {
+    while (p->next)
         p = p->next;
-        cout << p->data << " ";
-    }
+
+    p->data = input;
     return OK;
 }
 

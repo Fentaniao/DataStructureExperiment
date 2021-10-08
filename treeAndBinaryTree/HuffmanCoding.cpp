@@ -28,6 +28,8 @@ const int INT_M = 214497;
 
 using namespace std;
 
+static string arrayCode[5];
+
 //定义
 const int OK = 1;
 const int ERROR = 0;
@@ -42,9 +44,6 @@ typedef struct biTNode {
     biTNode *parent, *lChild, *rChild;
 } biTNode, *biTree;
 
-//biTNode biTNode::*parent = nullptr;
-//biTNode biTNode::*lChild = nullptr;
-//biTNode biTNode::*rChild = nullptr;
 
 //生成二叉树
 biTNode *createBiTree(int &set_size, int *arrayWeight, biTNode **arrayBiTNode) {
@@ -62,7 +61,6 @@ biTNode *createBiTree(int &set_size, int *arrayWeight, biTNode **arrayBiTNode) {
         index_min2 = int(min_element(arrayWeight + 0, arrayWeight + set_size) - arrayWeight);
         arrayWeight[index_min1] = temp;
 
-
 //组
         biTNode *t, *temp_t;
 
@@ -78,7 +76,6 @@ biTNode *createBiTree(int &set_size, int *arrayWeight, biTNode **arrayBiTNode) {
         t->lChild = temp_t;
         temp_t->parent = t;
 
-
         temp_t = new biTNode;
         temp_t->weight = arrayBiTNode[index_min2]->weight;
         temp_t->parent = arrayBiTNode[index_min2]->parent;
@@ -87,22 +84,20 @@ biTNode *createBiTree(int &set_size, int *arrayWeight, biTNode **arrayBiTNode) {
         t->rChild = temp_t;
         temp_t->parent = t;
 
-
         arrayBiTNode[index_min1] = t;
-
 
 //        删
         arrayWeight[index_min2] = INT_M;
 
-        i = j = 0;
-        while (i < set_size) {
+        for (i = 0; i < set_size; i++) {
             cout << arrayWeight[i] << " ";
-            i++;
         }
-        for (i = 0; i < set_size; i++)
+        cout << endl;
+
+        for (i = j = 0; i < set_size; i++)
             if (arrayWeight[i] == INT_M)
                 j++;
-        cout << endl;
+
         if (j == set_size - 1)
             flag = false;
 
@@ -114,68 +109,36 @@ biTNode *createBiTree(int &set_size, int *arrayWeight, biTNode **arrayBiTNode) {
             return arrayBiTNode[i];
 }
 
-//先序遍历输出结点的值
-status preOrderTraverse(biTree &T) {
-    if (T) {
-        cout << T->weight << " ";
-        preOrderTraverse(T->lChild);
-        preOrderTraverse(T->rChild);
+
+//求某个结点的哈夫曼编码
+string singleHuffmanCoding(biTNode *T) {
+    static string code;
+    if (T->parent) {
+        if (T->parent->lChild == T)
+            code += '0';
+        else
+            code += '1';
+        singleHuffmanCoding(T->parent);
     }
-    return OK;
+    return code;
 }
 
-//中序遍历输出结点的值
+
+//求查找子结点进行编码
 status inOrderTraverse(biTree &T) {
-    if (T) {
-        inOrderTraverse(T->lChild);
-        cout << T->weight << " ";
-        inOrderTraverse(T->rChild);
-    }
-    return OK;
-}
-
-//后序遍历输出结点的值
-status postOrderTraverse(biTree &T) {
-    if (T) {
-        postOrderTraverse(T->lChild);
-        postOrderTraverse(T->rChild);
-        cout << T->weight << " ";
-    }
-    return OK;
-}
-
-//中序遍历求二叉树高度
-int inOrderHeight(biTree &T) {
-    int l, r;
-    if (T) {
-        l = inOrderHeight(T->lChild);
-        r = inOrderHeight(T->rChild);
-    } else
-        return 0;
-    return l > r ? l + 1 : r + 1;
-}
-
-//中序遍历求叶子结点数
-int inOrderLeaves(biTree &T) {
     static int i = 0;
     if (T) {
-        inOrderLeaves(T->lChild);
-        if ((T->lChild == nullptr) && (T->rChild == nullptr))
+        if (!((T->lChild) || (T->rChild))) {
+            arrayCode[i] = singleHuffmanCoding(T);
+            cout << i << ":" << arrayCode[i] << endl;
+            reverse(arrayCode[i].begin(), arrayCode[i].end());
             i++;
-        inOrderLeaves(T->rChild);
+        } else {
+            inOrderTraverse(T->lChild);
+            inOrderTraverse(T->rChild);
+        }
     }
-    return i;
-}
-
-//中序遍历求总的结点数
-int inOrderNodes(biTree &T) {
-    static int i = 0;
-    if (T) {
-        inOrderNodes(T->lChild);
-        i++;
-        inOrderNodes(T->rChild);
-    }
-    return i;
+    return OK;
 }
 
 int main() {
@@ -183,58 +146,53 @@ int main() {
     int i;
     int set_size;
 
-    cout << "读入字符集大小：" << endl;
+    cout << "读入字符集大小：";
     cin >> set_size;
 
-    string arrayChar[set_size];
+    string arrayChar;
     int arrayWeight[set_size];
+
     biTNode *arrayBiTNode[set_size];
 
-    cout << "读入字符集：" << endl;
-    i = 1;
-    while (i <= set_size) {
-        cin >> arrayChar[i - 1];
-        i++;
-    }
+    cout << "读入字符集：";
+    cin >> arrayChar;
 
-    cout << "读入权值：" << endl;
-    i = 1;
-    while (i <= set_size) {
-        cin >> arrayWeight[i - 1];
-        i++;
-    }
 
-    i = 1;
-    while (i <= set_size) {
+    cout << "读入权值：";
+    for (i = 0; i < set_size; i++)
+        cin >> arrayWeight[i];
+
+
+    for (i = 0; i < set_size; i++) {
         biTNode *t;
         t = new biTNode;
-        t->weight = arrayWeight[i - 1];
+        t->weight = arrayWeight[i];
         t->parent = t->lChild = t->rChild = nullptr;
-        arrayBiTNode[i - 1] = t;
-        i++;
+        arrayBiTNode[i] = t;
     }
 
-    cout << "读入字符：" << endl;
+    cout << "正在建立哈夫曼树" << endl;
     T = createBiTree(set_size, arrayWeight, arrayBiTNode);
     cout << "创建成功！" << endl;
 
-
-    cout << "先序遍历输出结点的值：";
-    preOrderTraverse(T);
-    cout << endl;
-
-    cout << "中序遍历输出结点的值：";
+    cout << "建立编码" << endl;
     inOrderTraverse(T);
-    cout << endl;
 
-    cout << "后序遍历输出结点的值：";
-    postOrderTraverse(T);
-    cout << endl;
+    cout << "读入报文：" << endl;
+    string telegraph;
+    for (i = 0; i < set_size; i++)
+        cin >> telegraph;
 
 
-    cout << "二叉树高度：" << inOrderHeight(T) << endl;
+    cout << "输出报文的编码：" << endl;
+    string newTelegraph;
+    for (i = 0; i < telegraph.length(); i++) {
+        auto index = arrayChar.find(telegraph[i]);
+        if (index != string::npos) {
+            newTelegraph += arrayCode[index];
+        }
+    }
 
-    cout << "叶子结点数：" << inOrderLeaves(T) << endl;
 
-    cout << "总的结点数：" << inOrderNodes(T) << endl;
+    cout << newTelegraph;
 }

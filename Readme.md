@@ -27,4 +27,4 @@
 | ------------ | :------------------ | :--------: |
 | 以二叉链表方式建立二叉树，并输出结点的值       | buildBinaryTree.cpp   | Developed  |
 | 实现二叉树的高度、叶子结点数、总的结点数等算法     | calcBinaryTree.cpp      |  Developed |
-| 哈夫曼编码 | HuffmanCoding.cpp |  |
+| 哈夫曼编码 | HuffmanCoding.cpp | Developed |
