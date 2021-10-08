@@ -109,7 +109,7 @@ int inOrderNodes(biTree &T) {
 int main() {
     biTree T;
 
-    cout << "读入字符：" << endl;
+    cout << "读入字符：";
     createBiTree(T);
 
     cout << "先序遍历输出结点的值：";

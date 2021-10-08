@@ -103,7 +103,6 @@ biTNode *createBiTree(int &set_size, int *arrayWeight, biTNode **arrayBiTNode) {
 
     }
 
-
     for (i = 0; i < set_size; i++)
         if (arrayWeight[i] != INT_M)
             return arrayBiTNode[i];
@@ -130,7 +129,7 @@ status inOrderTraverse(biTree &T) {
     if (T) {
         if (!((T->lChild) || (T->rChild))) {
             arrayCode[i] = singleHuffmanCoding(T);
-            cout << i << ":" << arrayCode[i] << endl;
+//            cout << i << ":" << arrayCode[i] << endl;
             reverse(arrayCode[i].begin(), arrayCode[i].end());
             i++;
         } else {
@@ -151,17 +150,14 @@ int main() {
 
     string arrayChar;
     int arrayWeight[set_size];
-
     biTNode *arrayBiTNode[set_size];
 
     cout << "读入字符集：";
     cin >> arrayChar;
 
-
     cout << "读入权值：";
     for (i = 0; i < set_size; i++)
         cin >> arrayWeight[i];
-
 
     for (i = 0; i < set_size; i++) {
         biTNode *t;
@@ -175,16 +171,15 @@ int main() {
     T = createBiTree(set_size, arrayWeight, arrayBiTNode);
     cout << "创建成功！" << endl;
 
-    cout << "建立编码" << endl;
+    cout << "正在建立编码" << endl;
     inOrderTraverse(T);
+    cout << "创建成功！" << endl;
 
-    cout << "读入报文：" << endl;
+    cout << "读入报文：";
     string telegraph;
-    for (i = 0; i < set_size; i++)
-        cin >> telegraph;
+    cin >> telegraph;
 
-
-    cout << "输出报文的编码：" << endl;
+    cout << "输出编码：";
     string newTelegraph;
     for (i = 0; i < telegraph.length(); i++) {
         auto index = arrayChar.find(telegraph[i]);
@@ -193,6 +188,6 @@ int main() {
         }
     }
 
-
-    cout << newTelegraph;
+    cout << newTelegraph<<endl;
+//    cout <<"11010111001101001001111001001001"<<endl;
 }
