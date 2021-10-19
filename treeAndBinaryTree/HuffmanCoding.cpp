@@ -213,7 +213,7 @@ int main() {
     string telegraph;
     cin >> telegraph;
 
-    cout << "输出编码：";
+    cout << "报文编码：";
     for (i = 0; i < telegraph.length(); i++) {
         auto index = arrayChar.find(telegraph[i]);
         if (index != string::npos)
