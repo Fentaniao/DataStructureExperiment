@@ -12,5 +12,5 @@ foreach (file ${files})
     message(\ \ \ \ --\ src/${exe}.cpp\ will\ be\ compiled\ to\ bin/${exe})
 endforeach ()
 
-
+include_directories(.)
 #add_subdirectory(Google_tests)

@@ -16,47 +16,46 @@
 
 #include <iostream>
 
-#define varName(x) #x
-#define printExp(exp) cout<<#exp<<"为:\t\t"<<(exp)<<endl
-
-using namespace std;
+//#define varName(x) #x
 
 //trace simple variable
+#define trace(var,traceNum,description) Trace(var,traceNum,description, #var)
 template<typename T>
-void trace(T var, int traceNum = -1, const string &description = "") {
-    cout << "TRACE[VarName=" << varName(var) << "] ";
+void Trace(T var, int traceNum, const std::string &description ,const std::string &varName) {
+    std::cout << "TRACE[VarName=" << varName << "] ";
 
     if (traceNum != -1)
-        cout << "[TraceNum=" << traceNum << "] ";
+        std::cout << "[TraceNum=" << traceNum << "] ";
 
-    cout << "[Type=" << typeid(var).name() << "] "
-         << "[Value=" << var << "]";
+    std::cout << "[Type=" << typeid(var).name() << "] "
+              << "[Value=" << var << "]";
 
     if (!description.empty())
-        cout << "[Desc: " << description << "] ";
+        std::cout << "[Desc: " << description << "] ";
 
-    cout << endl;
+    std::cout << std::endl;
 }
 
 
 //trace Array variable
+#define traceArr(var,traceNum ,description) TraceArr(var,traceNum,description, #var)
 template<typename T>
-void traceArr(T var, int traceNum = -1, const string &description = "") {
-    cout << "TRACE[ArrName=" << varName(var) << "] ";
+void TraceArr(T var, int traceNum = -1, const std::string &description = "",const std::string &varName = "") {
+    std::cout << "TRACE[ArrName=" << varName << "] ";
 
     if (traceNum != -1)
-        cout << "[TraceNum=" << traceNum << "] ";
+        std::cout << "[TraceNum=" << traceNum << "] ";
 
-    cout << "[Type=" << typeid(var).name() << "] "
-         << "[Set={";
+    std::cout << "[Type=" << typeid(var[0]).name() << "] "
+              << "[Set={";
     for (int i = 0; i < sizeof(var) / sizeof(var[0]); i++)
-        cout << var[i] << ", ";
-    cout << "}]";
+        std::cout << var[i] << ", ";
+    std::cout << "}]";
 
     if (!description.empty())
-        cout << "[Desc: " << description << "] ";
+        std::cout << "[Desc: " << description << "] ";
 
-    cout << endl;
+    std::cout << std::endl;
 }
 
 #endif //POWERTRACE_H

@@ -13,6 +13,7 @@
 
 
 #include <iostream>
+#include "PowerTrace.h"
 
 using namespace std;
 
@@ -107,13 +108,36 @@ Status printAMGraph(AMGraph &G) {
     return OK;
 }
 
+int visited[MAXSIZE];
+
+Status DFS(AMGraph &G, int index) {
+    int i;
+    visited[index] = 1;
+    cout << G.vexes[index] << " ";
+    for (i = 0; i < G.vexNum; i++)
+        if (!visited[i])
+            if (G.arcs[index][i] != MAXINT)
+                DFS(G, i);
+
+    return OK;
+}
 
 int main() {
     AMGraph G;
+    int i;
 
     buildAMGraph(G);
 
     printAMGraph(G);
+
+    cout << "DFS" << endl;
+    for (i = 0; i < G.vexNum; i++)
+        if (!visited[i]) {
+            cout << "连通分量: ";
+            DFS(G, i);
+            cout << endl;
+        }
+    traceArr(visited);
 
     return 0;
 }
