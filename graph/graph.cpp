@@ -13,14 +13,13 @@
 
 
 #include <iostream>
-#include "PowerTrace.h"
 
 using namespace std;
 
 //定义
 const int OK = 1;
 const int ERROR = 0;
-const int OVERFOLOW = -2;
+const int OVERFLOW = -2;
 const int MAXSIZE = 100;
 
 const int MAXINT = 32767;
@@ -108,7 +107,9 @@ Status printAMGraph(AMGraph &G) {
     return OK;
 }
 
-int visited[MAXSIZE];
+
+static int visited[10];
+
 
 Status DFS(AMGraph &G, int index) {
     int i;
@@ -137,7 +138,7 @@ int main() {
             DFS(G, i);
             cout << endl;
         }
-    traceArr(visited);
+
 
     return 0;
 }

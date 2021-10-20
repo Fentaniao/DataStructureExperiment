@@ -15,11 +15,12 @@
 // TODO 可以考虑使用修饰符进行控制，如"N2D描述S"表示输出traceNum为2，description为描述，S表示储存为日志
 
 #include <iostream>
+#define trace(var,traceNum,description) Trace(var,traceNum,description, #var)
+#define traceArr(var,traceNum ,description) TraceArr(var,traceNum,description, #var)
 
 //#define varName(x) #x
 
 //trace simple variable
-#define trace(var,traceNum,description) Trace(var,traceNum,description, #var)
 template<typename T>
 void Trace(T var, int traceNum, const std::string &description ,const std::string &varName) {
     std::cout << "TRACE[VarName=" << varName << "] ";
@@ -38,9 +39,8 @@ void Trace(T var, int traceNum, const std::string &description ,const std::strin
 
 
 //trace Array variable
-#define traceArr(var,traceNum ,description) TraceArr(var,traceNum,description, #var)
 template<typename T>
-void TraceArr(T var, int traceNum = -1, const std::string &description = "",const std::string &varName = "") {
+void TraceArr(T var, int traceNum , const std::string &description ,const std::string &varName ) {
     std::cout << "TRACE[ArrName=" << varName << "] ";
 
     if (traceNum != -1)
