@@ -13,6 +13,7 @@
 
 
 #include <iostream>
+#include "PowerTrace.h"
 
 using namespace std;
 
@@ -50,23 +51,23 @@ Status buildAMGraph(AMGraph &G) {
     double weight;
     VerTexType v1, v2;
 
-    cout << "Please input total vexes: ";
+    cout << ">> Please input total vexes: ";
     cin >> G.vexNum;
-    cout << "Please input total arcs: ";
+    cout << ">> Please input total arcs: ";
     cin >> G.arcNum;
 
-    cout << "Please input data of every vexes: ";
+    cout << ">> Please input data of every vexes: ";
     for (i = 0; i < G.vexNum; ++i) {
         cin >> G.vexes[i];
     }
 
-//    初始化邻接矩阵
+    //    初始化邻接矩阵
     for (i = 0; i < G.vexNum; ++i)
         for (j = 0; j < G.vexNum; ++j)
             G.arcs[i][j] = MAXINT;
 
-//for循环输入权重，节点1和节点2
-    cout << "Please input weight between one vex and another: ";
+    //for循环输入权重，节点1和节点2
+    cout << ">> Please input weight between one vex and another: ";
     for (i = 0; i < G.arcNum; i++) {
         cin >> weight >> v1 >> v2;
 
@@ -134,6 +135,7 @@ int main() {
     cout << "DFS" << endl;
     for (i = 0; i < G.vexNum; i++)
         if (!visited[i]) {
+            traceArr(visited, i);
             cout << "连通分量: ";
             DFS(G, i);
             cout << endl;

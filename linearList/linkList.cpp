@@ -212,7 +212,7 @@ status reverseLinkList(LinkList &L) {
     int i = 0;
     elemType arr[length(L)];
 
-//    读取数据
+    //    读取数据
     p = L;
     while (p->next) {
         p = p->next;
@@ -220,7 +220,7 @@ status reverseLinkList(LinkList &L) {
         i++;
     }
 
-//    反向输入
+    //反向输入
     p = L;
     while (p->next) {
         i--;
