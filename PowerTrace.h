@@ -9,7 +9,7 @@
  * <p>Copy this .h file to your project directory, and include <b><code>#include "PowerTrace.h"</code></b> in your target .cpp file.
  * <h2>Copyright</h2>
  * @author      Fentaniao
- * @version       2021/10/20
+ * @version       2021/10/21
  */
 
 // TODO 可以考虑使用修饰符进行控制，如"N2D描述S"表示输出traceNum为2，description为描述，S表示储存为日志
@@ -23,7 +23,11 @@ using namespace std;
  * <p>trace customize variable
  */
 
+// TODO 完善自定义内容
 //#define varName(x) #x
+//__FILE__
+//__LINE__
+//__FUNCTION__
 
 
 /**
