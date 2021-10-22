@@ -135,7 +135,7 @@ int main() {
     cout << "DFS" << endl;
     for (i = 0; i < G.vexNum; i++)
         if (!visited[i]) {
-            traceArr(visited, i);
+            traceArr(visited, { i });
             cout << "连通分量: ";
             DFS(G, i);
             cout << endl;

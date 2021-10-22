@@ -47,20 +47,21 @@ using namespace std;
 #define TRACE_8(v, opt1, opt2, opt3, opt4, opt5, opt6, opt7) Trace(v, #v, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5, opt6, opt7)
 
 //封装
-#define TRACE_NARG(...) TRACE_ARG_N(__VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)
-#define TRACE_ARG_N(_1, _2, _3, _4, _5, _6, n, ...) n
+#define TRACE_NARG(...) TRACE_ARG_N(__VA_ARGS__, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+#define TRACE_ARG_N(_1, _2, _3, _4, _5, _6, _7, _8, n, ...) n
 #define TRACE_NC(f, ...) f(__VA_ARGS__)
 #define TRACE_NB(nargs, ...) TRACE_NC(TRACE_ ## nargs, __VA_ARGS__)
 #define TRACE_NA(nargs, ...) TRACE_NB(nargs, __VA_ARGS__)
 #define trace(...) TRACE_NA(TRACE_NARG(__VA_ARGS__), __VA_ARGS__)
 
+//函数
 template<typename T>
 void
 Trace(const T var, const string &varName, const int lineNum, const string &function,
       const list<int> &traceNum = list<int>{},
       const string &description = "") {
     //    变量名
-    cout << "TRACE[Var=" << varName << "] ";
+    cout << "TRACE [Var=" << varName << "] ";
 
     //    变量属性：类型
     cout << "[Type=" << typeid(var).name() << "] ";
@@ -102,14 +103,16 @@ Trace(const T var, const string &varName, const int lineNum, const string &funct
 #define TRACEARR_6(v, opt1, opt2, opt3, opt4, opt5) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5)
 #define TRACEARR_7(v, opt1, opt2, opt3, opt4, opt5, opt6) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5, opt6)
 #define TRACEARR_8(v, opt1, opt2, opt3, opt4, opt5, opt6, opt7) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5, opt6, opt7)
+
 //封装
-#define TRACEARR_NARG(...) TRACEARR_ARG_N(__VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)
-#define TRACEARR_ARG_N(_1, _2, _3, _4, _5, _6, n, ...) n
+#define TRACEARR_NARG(...) TRACEARR_ARG_N(__VA_ARGS__, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+#define TRACEARR_ARG_N(_1, _2, _3, _4, _5, _6, _7, _8, n, ...) n
 #define TRACEARR_NC(f, ...) f(__VA_ARGS__)
 #define TRACEARR_NB(nargs, ...) TRACEARR_NC(TRACEARR_ ## nargs, __VA_ARGS__)
 #define TRACEARR_NA(nargs, ...) TRACEARR_NB(nargs, __VA_ARGS__)
 #define traceArr(...) TRACEARR_NA(TRACEARR_NARG(__VA_ARGS__), __VA_ARGS__)
 
+//函数
 template<typename T>
 void
 TraceArr(const T var, const string &varName, const int &maxLength, const int lineNum, const string &function,
@@ -121,7 +124,7 @@ TraceArr(const T var, const string &varName, const int &maxLength, const int lin
     while (var[++nonEmptyLength] != '\0');
 
     //    变量名
-    cout << "TRACE[Array=" << varName << "] ";
+    cout << "TRACE [Array=" << varName << "] ";
 
     //    变量属性：类型，长度
     cout << "[Type=" << typeid(var[0]).name() << ", "
@@ -145,7 +148,7 @@ TraceArr(const T var, const string &varName, const int &maxLength, const int lin
     }
     cout << "] ";
 
-    //        描述
+    //    描述
     if (!description.empty())
         cout << "[Desc: " << description << "] ";
 
