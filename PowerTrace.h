@@ -15,6 +15,7 @@
 // TODO 可以考虑使用修饰符进行控制，如"N2D描述S"表示输出traceNum为2，description为描述，S表示储存为日志
 
 #include <iostream>
+#include <list>
 
 using namespace std;
 
@@ -39,10 +40,15 @@ using namespace std;
 #define TRACE_1(v) Trace(v, #v, __LINE__, __FUNCTION__)
 #define TRACE_2(v, opt1) Trace(v, #v, __LINE__, __FUNCTION__, opt1)
 #define TRACE_3(v, opt1, opt2) Trace(v, #v, __LINE__, __FUNCTION__, opt1, opt2)
+#define TRACE_4(v, opt1, opt2, opt3) Trace(v, #v, __LINE__, __FUNCTION__, opt1, opt2, opt3)
+#define TRACE_5(v, opt1, opt2, opt3, opt4) Trace(v, #v, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4)
+#define TRACE_6(v, opt1, opt2, opt3, opt4, opt5) Trace(v, #v, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5)
+#define TRACE_7(v, opt1, opt2, opt3, opt4, opt5, opt6) Trace(v, #v, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5, opt6)
+#define TRACE_8(v, opt1, opt2, opt3, opt4, opt5, opt6, opt7) Trace(v, #v, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5, opt6, opt7)
 
 //封装
-#define TRACE_NARG(...) TRACE_ARG_N(__VA_ARGS__, 4, 3, 2, 1, 0)
-#define TRACE_ARG_N(_1, _2, _3, _4, n, ...) n
+#define TRACE_NARG(...) TRACE_ARG_N(__VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)
+#define TRACE_ARG_N(_1, _2, _3, _4, _5, _6, n, ...) n
 #define TRACE_NC(f, ...) f(__VA_ARGS__)
 #define TRACE_NB(nargs, ...) TRACE_NC(TRACE_ ## nargs, __VA_ARGS__)
 #define TRACE_NA(nargs, ...) TRACE_NB(nargs, __VA_ARGS__)
@@ -50,7 +56,8 @@ using namespace std;
 
 template<typename T>
 void
-Trace(const T var, const string &varName, const int lineNum, const string &function, const int traceNum = -1,
+Trace(const T var, const string &varName, const int lineNum, const string &function,
+      const list<int> &traceNum = list<int>{},
       const string &description = "") {
     //    变量名
     cout << "TRACE[Var=" << varName << "] ";
@@ -64,15 +71,20 @@ Trace(const T var, const string &varName, const int lineNum, const string &funct
     //    标志：函数名，行号，循环参数
     cout << "[Fun=" << function << ", ";
     cout << "Line=" << lineNum;
-    if (traceNum != -1)
-        cout << ", Cycle=" << traceNum;
+    if (!traceNum.empty()) {
+        cout << ", Cycle=(";
+        for (int it: traceNum) {
+            cout << it << " ";
+        }
+        cout << "\b)";
+    }
     cout << "] ";
 
     //    描述
     if (!description.empty())
         cout << "[Desc: " << description << "] ";
 
-    cout << endl;
+    cout << "\b" << endl;
 }
 
 
@@ -85,10 +97,14 @@ Trace(const T var, const string &varName, const int lineNum, const string &funct
 #define TRACEARR_1(v) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__)
 #define TRACEARR_2(v, opt1) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1)
 #define TRACEARR_3(v, opt1, opt2) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1, opt2)
-
+#define TRACEARR_4(v, opt1, opt2, opt3) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1, opt2, opt3)
+#define TRACEARR_5(v, opt1, opt2, opt3, opt4) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4)
+#define TRACEARR_6(v, opt1, opt2, opt3, opt4, opt5) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5)
+#define TRACEARR_7(v, opt1, opt2, opt3, opt4, opt5, opt6) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5, opt6)
+#define TRACEARR_8(v, opt1, opt2, opt3, opt4, opt5, opt6, opt7) TraceArr(v, #v, extent<decltype(v)>::value, __LINE__, __FUNCTION__, opt1, opt2, opt3, opt4, opt5, opt6, opt7)
 //封装
-#define TRACEARR_NARG(...) TRACEARR_ARG_N(__VA_ARGS__, 4, 3, 2, 1, 0)
-#define TRACEARR_ARG_N(_1, _2, _3, _4, n, ...) n
+#define TRACEARR_NARG(...) TRACEARR_ARG_N(__VA_ARGS__, 6, 5, 4, 3, 2, 1, 0)
+#define TRACEARR_ARG_N(_1, _2, _3, _4, _5, _6, n, ...) n
 #define TRACEARR_NC(f, ...) f(__VA_ARGS__)
 #define TRACEARR_NB(nargs, ...) TRACEARR_NC(TRACEARR_ ## nargs, __VA_ARGS__)
 #define TRACEARR_NA(nargs, ...) TRACEARR_NB(nargs, __VA_ARGS__)
@@ -97,7 +113,7 @@ Trace(const T var, const string &varName, const int lineNum, const string &funct
 template<typename T>
 void
 TraceArr(const T var, const string &varName, const int &maxLength, const int lineNum, const string &function,
-         const int traceNum = -1,
+         const list<int> &traceNum = list<int>{},
          const string &description = "") {
     int i;
     //    参数计算
@@ -112,23 +128,28 @@ TraceArr(const T var, const string &varName, const int &maxLength, const int lin
          << "Len=" << nonEmptyLength << "/" << maxLength << "] ";
 
     //    值
-    cout << "[Set={";
+    cout << "[Array={";
     for (i = 0; i < nonEmptyLength; i++)
         cout << var[i] << ", ";
-    cout << "}] ";
+    cout << "\b\b}] ";
 
     //    标志：函数名，行号，循环参数
     cout << "[Fun=" << function << ", ";
     cout << "Line=" << lineNum;
-    if (traceNum != -1)
-        cout << ", Cycle=" << traceNum;
+    if (!traceNum.empty()) {
+        cout << ", Cycle=(";
+        for (int it: traceNum) {
+            cout << it << " ";
+        }
+        cout << "\b)";
+    }
     cout << "] ";
 
-    //    描述
+    //        描述
     if (!description.empty())
         cout << "[Desc: " << description << "] ";
 
-    cout << endl;
+    cout << "\b" << endl;
 }
 
 #endif //POWERTRACE_H
