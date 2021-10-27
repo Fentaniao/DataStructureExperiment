@@ -30,7 +30,7 @@ using namespace std;
 //定义
 const int OK = 1;
 const int ERROR = 0;
-const int OVERFOLOW = -2;
+const int OVERFLOW = -2;
 const int MAXSIZE = 100;
 
 typedef int status;
@@ -68,6 +68,18 @@ status creatList(LinkList &L) {
     }
 }
 
+//最前面添加元素
+status addAhead(LinkList &L, elemType input) {
+    LNode *p = L;
+    LNode *q;
+
+    q = new LNode;
+    q->data = input;
+    q->next = p->next;
+    p->next = q;
+
+    return OK;
+}
 
 //末尾添加元素
 status append(LinkList &L, elemType input) {
