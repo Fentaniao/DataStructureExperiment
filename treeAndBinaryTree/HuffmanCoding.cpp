@@ -109,7 +109,7 @@ void createBiTree(int &set_size, LinkList &L) {
     biTNode *t, *t1, *t2;
 
     while (length(L) > 1) {
-        //        查找链表中最小值的下标
+        //查找链表中最小值的下标
         p = L->next;
         min1 = min2 = 999;
         index_min1 = index_min2 = 0;
@@ -124,7 +124,7 @@ void createBiTree(int &set_size, LinkList &L) {
             }
             p = p->next;
         }
-        //        查找链表中次小值的下标
+        //查找链表中次小值的下标
         p = L->next;
         for (i = 0; i < length(L); i++) {
 
@@ -136,7 +136,7 @@ void createBiTree(int &set_size, LinkList &L) {
             p = p->next;
         }
 
-        //        组成新结点
+        //组成新结点
         t = new biTNode;
         t->weight = min1 + min2;
         t->parent = nullptr;
@@ -145,11 +145,11 @@ void createBiTree(int &set_size, LinkList &L) {
         t2->parent = t;
         t1->parent = t;
 
-        //        从链表中移除两个用过的结点
+        //从链表中移除两个用过的结点
         deleteElem(L, index_min2 + 1);
         deleteElem(L, index_min1 + 1);
 
-        //        添加新结点到链表的末尾
+        //添加新结点到链表的末尾
         append(L, t);
     }
 }
