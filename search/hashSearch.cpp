@@ -15,111 +15,76 @@
 //库
 #include <iostream>
 
-
 using namespace std;
 
 //定义
 const int OK = 1;
 const int ERROR = 0;
-const int OVERFLOW = -2;
+//const int OVERFLOW = -2;
 const int MAXSIZE = 100;
 
-const int MAXINT = 32767;
-
-typedef int status;
 typedef int keyType;
-typedef int infoType;
 typedef int elemType;
 
-typedef struct LNode {
-    elemType data;
-    struct LNode *next;
-} LNode, *LinkList;
+class LNode {
+public:
+    elemType data{};
+    LNode *next;
+public:
+    LNode() {
+        next = nullptr;
+    }
 
-//初始化
-status initList(LinkList &L) {
-    L = new LNode;
-    L->next = nullptr;
-    return OK;
-}
+    explicit LNode(elemType input) {
+        data = input;
+        next = nullptr;
+    }
+};
+
+class LinkList {
+public:
+    LNode *head;
+public:
+    void addAhead(elemType input);
+
+    void outputList();
+
+    int length();
+};
+
 
 //最前面添加元素
-status addAhead(LinkList &L, elemType input) {
-    LNode *p = L;
-    LNode *q;
-
-    q = new LNode;
-    q->data = input;
-    q->next = p->next;
-    p->next = q;
-
-    return OK;
+void LinkList::addAhead(elemType input) {
+    LNode *p = new LNode(input);
+    if (head == nullptr) {
+        head = p;
+        head->next = nullptr;
+    } else {
+        p->next = head->next;
+        head->next = p;
+    }
 }
 
 //输出表
-status outputList(LinkList &L) {
-    LNode *p = L;
-
-    while (p->next) {
-        p = p->next;
+void LinkList::outputList() {
+    LNode *p = head;
+    while (p) {
         cout << p->data << " ";
+        p = p->next;
     }
-    return OK;
 }
 
 
 //获取表长
-status length(LinkList &L) {
-    LNode *p = L;
+int LinkList::length() {
+    LNode *p = head;
     int len = 0;
 
-    while (p->next) {
-        p = p->next;
+    while (p) {
         len = len + 1;
+        p = p->next;
     }
     return len;
-}
-
-
-//插入操作，在第i个元素前插入一个元素
-status insertElem(LinkList &L, int i, elemType x) {
-    LNode *p = L;
-    LNode *q;
-    int j = 1;
-
-
-    if (i < 1 || length(L) < i)
-        return ERROR;
-    while (j < i) {
-        p = p->next;
-        j++;
-    }
-
-    q = new LNode;
-    q->data = x;
-    q->next = p->next;
-    p->next = q;
-
-    return OK;
-}
-
-
-//删除操作，删除表中第i个元素
-status deleteElem(LinkList &L, int i) {
-    LNode *p = L;
-    int j = 1;
-
-
-    if (i < 1 || length(L) < i)
-        return ERROR;
-    while (j < i) {
-        p = p->next;
-        j++;
-    }
-
-    p->next = p->next->next;
-
-    return OK;
 }
 
 class hashTable {
@@ -129,9 +94,6 @@ public:
 public:
     explicit hashTable(int p) {
         hashTable::p = p;
-        for (int i = 0; i < p; ++i) {
-            initList(handPoints[i]);
-        }
     }
 
     void addElem(keyType key);
@@ -144,17 +106,15 @@ public:
 void hashTable::addElem(keyType key) {
     int index;
     index = key % p;
-    addAhead(handPoints[index], key);
-
+    handPoints[index].addAhead(key);
 }
 
 void hashTable::outHashTable() {
     int i;
     for (i = 0; i < p; ++i) {
         cout << "Address " << i << ": ";
-        outputList(handPoints[i]);
+        handPoints[i].outputList();
         cout << endl;
-
     }
 }
 
@@ -164,18 +124,16 @@ void hashTable::outputFunction() const {
 
 
 int main() {
+    //Enter the parameter p from keyboard
     int p;
     cout << ">> Enter the parameter p: ";
     cin >> p;
     hashTable hT(p);
 
-    //trace(hT.handPoints);
-
-    //从键盘输入key
+    //Enter keys from keyboard
     keyType key;
     cout << ">> Enter the keys: ";
     while (cin >> key) {
-        //trace(key,{},"输入");
         hT.addElem(key);
     }
 
@@ -187,7 +145,6 @@ int main() {
     //Print hash table
     cout << "<< Print the hash table: " << endl;
     hT.outHashTable();
-
 
     return 0;
 }
