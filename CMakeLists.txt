@@ -24,11 +24,27 @@ include_directories(${googleTestDir}/googletest/include)
 #include the googlemock/include dir
 include_directories(${googleTestDir}/googlemock/include)
 
-set(SOURCE_FILE
+list(APPEND SOURCE_FILE
         test.cpp
         search/hashSearch.cpp
         )
 add_executable(GTest ${SOURCE_FILE})
+
+##搜索路径下的文件并添加至列表list，列表名为SOURCE_FILE
+#file(GLOB_RECURSE files *.cpp)
+#foreach (file ${files})
+#    file(RELATIVE_PATH file "${CMAKE_BINARY_DIR}" "${file}")
+#    string(REGEX REPLACE "../" "" exe ${file})
+#    if (exe MATCHES "Compiler")
+#    else (true)
+#        message(${file})
+#        list(APPEND SOURCE_FILE
+#                ${file}
+#                )
+#    endif ()
+#endforeach ()
+#add_executable(GTest ${SOURCE_FILE})
+
 
 # Link with GoogleTest
 target_link_libraries(GTest gtest gtest_main)
