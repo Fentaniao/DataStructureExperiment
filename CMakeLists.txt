@@ -13,4 +13,24 @@ foreach (file ${files})
 endforeach ()
 
 include_directories(.)
-#add_subdirectory(Google_tests)
+
+#支持googletest
+set(googleTestDir ./googletest)
+
+#Add the google test subdirectory
+add_subdirectory(${googleTestDir})
+#include googletest/include dir
+include_directories(${googleTestDir}/googletest/include)
+#include the googlemock/include dir
+include_directories(${googleTestDir}/googlemock/include)
+
+set(SOURCE_FILE
+        test.cpp
+        search/hashSearch.cpp
+        )
+add_executable(GTest ${SOURCE_FILE})
+
+# Link with GoogleTest
+target_link_libraries(GTest gtest gtest_main)
+#Link with GoogleMock
+target_link_libraries(GTest gmock gmock_main)

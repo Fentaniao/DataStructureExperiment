@@ -14,13 +14,14 @@
 
 //库
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
 //定义
 const int OK = 1;
 const int ERROR = 0;
-//const int OVERFLOW = -2;
+const int OVERFLOW = -2;
 const int MAXSIZE = 100;
 
 typedef int keyType;
@@ -123,7 +124,9 @@ void hashTable::outputFunction() const {
 }
 
 
-int main() {
+int mainFunction(const string &testString) {
+    stringstream cin(testString);
+
     //Enter the parameter p from keyboard
     int p;
     cout << ">> Enter the parameter p: ";
@@ -138,17 +141,36 @@ int main() {
     }
 
     //Print hash function
-    cout << "<< Print the hash function: " << endl;
+    cout << "<< Print hash function: " << endl;
     hT.outputFunction();
     cout << endl;
 
     //Print hash table
-    cout << "<< Print the hash table: " << endl;
+    cout << "<< Print hash table: " << endl;
     hT.outHashTable();
 
     return 0;
 }
 
+#include "gtest/gtest.h"
+
+TEST(test, c1) {
+    EXPECT_EQ(0, mainFunction("13\n19 14 23 1 68 20 84 27 55 11 10 79 k"));
+}
+
+TEST(test, c2) {
+    EXPECT_EQ(0, mainFunction("3\n1 2 3 4 5 6 7 8 9 10 11 12 13 k"));
+}
+
+TEST(test, c3) {
+    EXPECT_EQ(0, mainFunction("3\n1 2 3 4 5 6 7 8 9 10 11 12 13 k"));
+}
+
+
+//重定向方法
+//streambuf *buffer = cin.rdbuf(); //old buffer, STDOUT的缓冲区
+//stringstream cin(testString); //覆盖cin，使之重定向到字符串testString
+//cin.rdbuf(buffer); // 重置，重新载入STDOUT的缓冲区
 
 /**
 测试数据
