@@ -28,3 +28,22 @@
 | 以二叉链表方式建立二叉树，并输出结点的值       | buildBinaryTree.cpp   | Developed  |
 | 实现二叉树的高度、叶子结点数、总的结点数等算法     | calcBinaryTree.cpp      |  Developed |
 | 哈夫曼编码 | HuffmanCoding.cpp | Developed |
+
+## ./graph
+
+| Description  | FileName                |   Status   |
+| ------------ | :------------------ | :--------: |
+| 以邻接矩阵表示图，并实现DFS       | AMGraph.cpp   | Developed  |
+
+## ./search
+
+| Description  | FileName                |   Status   |
+| ------------ | :------------------ | :--------: |
+| 顺序搜索       | buildBinaryTree.cpp   | Developed  |
+| 以链表方式建立散列表     | hashSearch.cpp      |  Developed |
+
+## ./sort
+
+| Description  | FileName                |   Status   |
+| ------------ | :------------------ | :--------: |
+| 各种搜索算法       | sort.cpp   | Developing  |
