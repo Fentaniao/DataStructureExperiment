@@ -1,28 +1,15 @@
+#cmake_minimum_required
 cmake_minimum_required(VERSION 3.20)
+#项目名称
 project(Experiment)
-
+#CMAKE版本
 set(CMAKE_CXX_STANDARD 14)
 
-#支持多个单文件编译运行
-message("<< Add exe: ")
-#遍历项目根目录下所有的 .cpp 文件
-#要求所有cpp文件命名不重复，不能含有中文，不能含有‘/’等字符
-file(GLOB_RECURSE files *.cpp)
-foreach (file ${files})
-    #获取文件名
-    string(REGEX REPLACE ".+/(.+)\\..*" "\\1" exe ${file})
-    #添加
-    add_executable(${exe} ${file})
-    #发送完成消息
-    message(\ \ \ \ --\ src/${exe}.cpp\ will\ be\ compiled\ to\ bin/${exe})
-endforeach ()
-
-
+#添加目录
 include_directories(.)
 
-
-#支持googletest
-message("<< Enable GTest: ")
+#支持多文件分别编译运行和GTest
+message("<< Support exes & GTest: ")
 set(googleTestDir ./googletest)
 
 #Add the google test subdirectory
@@ -41,26 +28,10 @@ foreach (file ${files})
     file(RELATIVE_PATH path "${CMAKE_BINARY_DIR}" "${file}")
     #获取文件名
     string(REGEX REPLACE ".+/(.+)\\..*" "\\1" exe ${path})
-    if (exe MATCHES "CMakeCXXCompilerId")
-        #排除CMakeCXXCompilerId文件
-    else (true)
-        #添加
-        add_executable(GTest_${exe} ${path})
-        target_link_libraries(GTest_${exe} gtest gtest_main)
-        target_link_libraries(GTest_${exe} gmock gmock_main)
-        #发送完成消息
-        message("\ \ \ \ ~~\ Connected to GTest: ${path}")
-    endif ()
+    #添加
+    add_executable(${exe} ${path})
+    target_link_libraries(${exe} gtest gtest_main)
+    target_link_libraries(${exe} gmock gmock_main)
+    #发送完成消息
+    message(\ \ \ \ --\ src/${exe}.cpp\ will\ be\ compiled\ to\ bin/${exe})
 endforeach ()
-
-#仅连接list中的 .cpp 文件
-#list(APPEND SOURCE_FILE
-#        test.cpp
-#        search/hashSearch.cpp
-#        )
-#add_executable(GTest ${SOURCE_FILE})
-
-## Link with GoogleTest
-#target_link_libraries(GTest gtest gtest_main)
-##Link with GoogleMock
-#target_link_libraries(GTest gmock gmock_main)

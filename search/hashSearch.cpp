@@ -168,6 +168,10 @@ TEST(master, 3) {
     EXPECT_EQ(0, master("3\n1 2 3 4 5 6 7 8 9 10 11 12 13 k"));
 }
 
+int main(int argc, char **argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
 
 //重定向方法
 //streambuf *buffer = cin.rdbuf(); //old buffer, STDOUT的缓冲区
