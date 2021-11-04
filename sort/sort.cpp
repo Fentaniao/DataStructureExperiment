@@ -35,6 +35,16 @@ public:
     void insertSort();
 
     void biInsertSort();
+
+    void bubbleSort();
+
+    int Partition(int low, int high);
+
+    void QSort(int low, int high);
+
+    void QuickSort();
+
+    void SelectSort();
 };
 
 
@@ -112,6 +122,89 @@ void SqList::biInsertSort() {
     }
 }
 
+//对顺序表做冒泡排序
+void SqList::bubbleSort() {
+    int i, m, flag;
+    RedType t;
+
+    cout << "i=" << 1 << " ";
+    outputKey();
+
+    m = length - 1;
+    flag = 1;
+    while ((m > 0) && (flag == 1)) {
+        flag = 0;
+        for (i = 1; i <= m; i++)
+            if (r[i].key > r[i + 1].key) {
+                flag = 1;
+                t = r[i];
+                r[i] = r[i + 1];
+                r[i + 1] = t;
+            }
+        --m;
+
+        cout << "i=" << i << " ";
+        outputKey();
+    }
+}
+
+int SqList::Partition(int low, int high) {
+    keyType pivotkey;
+
+    r[0] = r[low];
+    pivotkey = r[low].key;
+    while (low < high) {
+        while (low < high && r[high].key >= pivotkey)
+            --high;
+        r[low] = r[high];
+        while (low < high && r[low].key <= pivotkey)
+            ++low;
+        r[high] = r[low];
+    }
+    r[low] = r[0];
+    return low;
+}
+
+void SqList::QSort(int low, int high) {
+    keyType pivotloc;
+
+    if (low < high) {
+
+        pivotloc = Partition(low, high);
+
+        QSort(low, pivotloc - 1);
+        QSort(pivotloc + 1, high);
+    }
+}
+
+void SqList::QuickSort() {
+    QSort(1, length);
+}
+
+//对顺序表做简单选择排序
+void SqList::SelectSort() {
+    int i, j, k;
+    RedType t{};
+
+    cout << "i=" << 1 << " ";
+    outputKey();
+
+    for (i = 1; i < length; ++i) {
+        k = i;
+
+        for (j = i + 1; j <= length; ++j)
+            if (r[j].key < r[k].key)
+                k = j;
+        if (k != i) {
+            t = r[i];
+            r[i] = r[k];
+            r[k] = t;
+        }
+
+        cout << "i=" << i << " ";
+        outputKey();
+    }
+}
 
 //菜单
 void menu(SqList L, int flag) {
@@ -139,15 +232,21 @@ void menu(SqList L, int flag) {
                 return;
             case 3:
                 cout << "冒泡排序: " << endl;
-
+                L.bubbleSort();
                 return;
             case 4:
                 cout << "快速排序: " << endl;
-
+                L.QuickSort();
                 return;
             case 5:
-                cout << "简单选择排序: " << endl;
+                cout << "i=" << 1 << " ";
+                L.outputKey();
 
+                cout << "简单选择排序: " << endl;
+                L.SelectSort();
+
+                cout << "i=" << 2 << " ";
+                L.outputKey();
                 return;
             case -1:
                 return;
