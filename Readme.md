@@ -46,4 +46,4 @@
 
 | Description  | FileName                |   Status   |
 | ------------ | :------------------ | :--------: |
-| 各种搜索算法       | sort.cpp   | Developing  |
+| 各种搜索算法       | sort.cpp   | Developed  |
