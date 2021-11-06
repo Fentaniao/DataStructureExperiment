@@ -125,7 +125,7 @@ void SqList::biInsertSort() {
 //对顺序表做冒泡排序
 void SqList::bubbleSort() {
     int i, m, flag;
-    RedType t;
+    RedType t{};
 
     cout << "i=" << 1 << " ";
     outputKey();
@@ -143,21 +143,21 @@ void SqList::bubbleSort() {
             }
         --m;
 
-        cout << "i=" << i << " ";
+        cout << "i=" << length - m << " ";
         outputKey();
     }
 }
 
 int SqList::Partition(int low, int high) {
-    keyType pivotkey;
+    keyType pivotKey;
 
     r[0] = r[low];
-    pivotkey = r[low].key;
+    pivotKey = r[low].key;
     while (low < high) {
-        while (low < high && r[high].key >= pivotkey)
+        while (low < high && r[high].key >= pivotKey)
             --high;
         r[low] = r[high];
-        while (low < high && r[low].key <= pivotkey)
+        while (low < high && r[low].key <= pivotKey)
             ++low;
         r[high] = r[low];
     }
@@ -166,18 +166,28 @@ int SqList::Partition(int low, int high) {
 }
 
 void SqList::QSort(int low, int high) {
-    keyType pivotloc;
+    keyType pivotLocation;
+    static int num = 2;
 
     if (low < high) {
 
-        pivotloc = Partition(low, high);
+        pivotLocation = Partition(low, high);
 
-        QSort(low, pivotloc - 1);
-        QSort(pivotloc + 1, high);
+        QSort(low, pivotLocation - 1);
+        cout << "i=" << num++ << " ";
+        outputKey();
+
+        QSort(pivotLocation + 1, high);
+        cout << "i=" << num++ << " ";
+        outputKey();
     }
 }
 
+//对顺序表做快速排序
 void SqList::QuickSort() {
+    cout << "i=" << 1 << " ";
+    outputKey();
+
     QSort(1, length);
 }
 
@@ -201,7 +211,7 @@ void SqList::SelectSort() {
             r[k] = t;
         }
 
-        cout << "i=" << i << " ";
+        cout << "i=" << i + 1 << " ";
         outputKey();
     }
 }
@@ -239,14 +249,8 @@ void menu(SqList L, int flag) {
                 L.QuickSort();
                 return;
             case 5:
-                cout << "i=" << 1 << " ";
-                L.outputKey();
-
                 cout << "简单选择排序: " << endl;
                 L.SelectSort();
-
-                cout << "i=" << 2 << " ";
-                L.outputKey();
                 return;
             case -1:
                 return;
@@ -264,10 +268,10 @@ int main() {
 
     //输入顺序表数据
     L.creatList();
-    cout << "Print keys of the list: ";
+    cout << "<< Print keys of the list: ";
     L.outputKey();
 
-    //通过菜单调用不同的排序算法
+    //通过循环调用菜单函数，一次性展示所有不同的排序算法
     for (i = 1; i <= 5; ++i) {
         menu(L, i);
     }
