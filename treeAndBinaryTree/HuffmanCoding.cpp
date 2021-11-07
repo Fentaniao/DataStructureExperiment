@@ -222,6 +222,8 @@ int main() {
             cout << telegraph[i];
     }
 }
+
+
 // 5
 // CAST;
 // 2 4 2 3 3

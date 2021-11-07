@@ -14,7 +14,6 @@
 
 //库
 #include <iostream>
-#include <sstream>
 
 using namespace std;
 
@@ -123,10 +122,7 @@ void hashTable::outputFunction() const {
     cout << "H(key) = key % " << p;
 }
 
-
-int master(const string &testString) {
-    stringstream cin(testString);
-
+int main() {
     //Enter the parameter p from keyboard
     int p;
     cout << ">> Enter the parameter p: ";
@@ -152,26 +148,56 @@ int master(const string &testString) {
     return 0;
 }
 
+
 //Test module
-#include "gtest/gtest.h"
+//#include "gtest/gtest.h"
+//#include <sstream>
+//int master(const string &testString) {
+//    stringstream cin(testString);
+//
+//    //Enter the parameter p from keyboard
+//    int p;
+//    cout << ">> Enter the parameter p: ";
+//    cin >> p;
+//    hashTable hT(p);
+//
+//    //Enter keys from keyboard
+//    keyType key;
+//    cout << ">> Enter the keys: ";
+//    while (cin >> key) {
+//        hT.addElem(key);
+//    }
+//
+//    //Print hash function
+//    cout << "<< Print hash function: " << endl;
+//    hT.outputFunction();
+//    cout << endl;
+//
+//    //Print hash table
+//    cout << "<< Print hash table: " << endl;
+//    hT.outHashTable();
+//
+//    return 0;
+//}
 
-string testString;
-TEST(master, 1) {
-    EXPECT_EQ(0, master("13\n19 14 23 1 68 20 84 27 55 11 10 79 k"));
-}
 
-TEST(master, 2) {
-    EXPECT_EQ(0, master("3\n1 2 3 4 5 6 7 8 9 10 11 12 13 k"));
-}
-
-TEST(master, 3) {
-    EXPECT_EQ(0, master("3\n1 2 3 4 5 6 7 8 9 10 11 12 13 k"));
-}
-
-int main(int argc, char **argv) {
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
+//string testString;
+//TEST(master, 1) {
+//    EXPECT_EQ(0, master("13\n19 14 23 1 68 20 84 27 55 11 10 79 k"));
+//}
+//
+//TEST(master, 2) {
+//    EXPECT_EQ(0, master("3\n1 2 3 4 5 6 7 8 9 10 11 12 13 k"));
+//}
+//
+//TEST(master, 3) {
+//    EXPECT_EQ(0, master("3\n1 2 3 4 5 6 7 8 9 10 11 12 13 k"));
+//}
+//
+//int main(int argc, char **argv) {
+//    testing::InitGoogleTest(&argc, argv);
+//    return RUN_ALL_TESTS();
+//}
 
 //重定向方法
 //streambuf *buffer = cin.rdbuf(); //old buffer, STDOUT的缓冲区

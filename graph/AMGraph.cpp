@@ -12,8 +12,8 @@
 以上能实现一个即可，建议邻接矩阵和邻接表都完成*/
 
 
+//#include "PowerTrace.h"
 #include <iostream>
-#include "PowerTrace.h"
 
 using namespace std;
 
@@ -135,7 +135,7 @@ int main() {
     cout << "DFS" << endl;
     for (i = 0; i < G.vexNum; i++)
         if (!visited[i]) {
-            traceArr(visited, { i });
+            //traceArr(visited, { i });
             cout << "连通分量: ";
             DFS(G, i);
             cout << endl;
